@@ -23,10 +23,12 @@ for x = -15:15
     for y = -15:15
         
         %do RG, RB correlation at same time to be more efficient
+        %circshift is shifting an image in each dimension by y,x  pixels
         corr_R_G = corr2(circshift(greenshiftX, [y, x]), red);
         corr_R_B = corr2(circshift(blueshiftX, [y, x]), red);
         
             %Keep track of best correlation value and best displacement
+            %Best correlation = maximal value 
             if corr_R_G > maxCorr
                 maxCorr = corr_R_G;
                 bestXdisp = x;
