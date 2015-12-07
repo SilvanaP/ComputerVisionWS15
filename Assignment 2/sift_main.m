@@ -19,6 +19,7 @@ I2 = im2single(rgb2gray(I2));
 
 %STEP 2: Match and plot
 [matches, scores] = vl_ubcmatch(D, D2) ;
+close all; 
 
 %extract coordinates by the indices returned by matches
 xI = F(1,matches(1,:));
@@ -29,6 +30,7 @@ xI2 = F2(1,matches(2,:));
 yI2 = F2(2,matches(2,:));
 p2 = [xI2', yI2'];
 
+%Plot the first macthes
 %match_plot(I, I2, p1, p2)
 
 maxInliers = 0;
@@ -84,35 +86,49 @@ end
 
 %4. Reestimate homography
     
-    inX = zeros(size(matches,2), 1);
-    inY = zeros(size(matches,2), 1);
-    inX2 = zeros(size(matches,2), 1);
-    inY2 = zeros(size(matches,2), 1);
+inX = zeros(size(matches,2), 1);
+inY = zeros(size(matches,2), 1);
+inX2 = zeros(size(matches,2), 1);
+inY2 = zeros(size(matches,2), 1);
+
+%Get all the inliers
+inX = xI' .* bestInliers;
+inY = yI' .* bestInliers;
+
+inX2 = xI2' .* bestInliers;
+inY2= yI2' .* bestInliers;
     
-    %Get all the inliers
-    inX = xI' .* bestInliers;
-    inY = yI' .* bestInliers;
-    
-    inX2 = xI2' .* bestInliers;
-    inY2= yI2' .* bestInliers;
-    
-    try
-    tFormBest = cp2tform([inX, inY],[inX2, inY2], 'projective');
-    catch ME
-        switch ME.identifier
-            case 'images:cp2tform:rankError'
-                warning('This shoudl not heppen with best inliers');
-            otherwise
-                warning('smtgh else fucked up');
-        end
+try
+tFormBest = cp2tform([inX, inY],[inX2, inY2], 'projective');
+catch ME
+    switch ME.identifier
+        case 'images:cp2tform:rankError'
+            warning('This shoudl not heppen with best inliers');
+        otherwise
+            warning('smtgh else fucked up');
     end
+end
+
+%Plot the "ideal" matches
+%match_plot(I, I2,[inX, inY],[inX2, inY2])
 
 %5. Transform first image into second image
+sizeXY = [1, 1]; %size of a pixel in x, y dimension (why do we even need that?)
+xData = [1, size(I2, 2)]; %index  of first and  last column
+yData = [1, size(I2, 1)]; %index  of first and last row
+res = imtransform(I, tFormBest, 'XData', xData, 'YData', yData, 'XYScale', sizeXY)
 
-sizeXY = [size(I2, 2), size(I2, 1)];
-xData = [1, size(I2, 2)]; %
-yData = [1, size(I2, 1)]; %
-imageTransformed = imtransform(I, tFormBest, 'XData', xData, 'YData', yData, 'XYScale', sizeXY )
+
+%Meh,  das schaut ned  sooo toll aus  :-/
+% figure()
+% imshow(res)
+% 
+% figure()
+% imshow(I2)
+% 
+% figure()
+% imshow(abs(res - I2))
+
 
 
 
