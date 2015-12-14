@@ -1,6 +1,7 @@
 function [] = stitch_images(path, prefix, type, startIndex, endIndex, output);
 %usage: stitch_images('ass4_data','officeview','.jpg',1,5,0)
 %       stitch_images('ass4_data','campus','.jpg',1,5,0)
+%       stitch_images('ass4_data/rankweil','rankweil','.jpg',1,7,0)
 %---------
 %path... e.g. ass4_data
 %prefix... e.g. campus or officeview
@@ -114,6 +115,11 @@ for i = startIndex : endIndex
         %approximate values for "campus"
         xData = [-600,1000];
         yData = [-200,700];
+    end
+    if strcmp(prefix,'rankweil') 
+        %approximate values for "campus"
+        xData = [-3000,3500];
+        yData = [-1000,1500];
     end
     
     %transform images
