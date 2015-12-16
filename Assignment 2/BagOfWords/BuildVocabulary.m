@@ -49,7 +49,7 @@ for k = 2:800
         step = val;
     end
     % features of current image
-    disp(sprintf('calc SIFT for image %d', k));
+    disp(sprintf('Building Vocab: calc SIFT for image %d', k));
     [frames, descriptors] = vl_dsift(single(images_all{k}), 'step', step, 'fast');
     
     % concatenate side by side
@@ -58,7 +58,7 @@ for k = 2:800
 end
 
 % k-means clustering
-disp(sprintf('K-Means-clustering with %d clusters...', num_clusters));
+disp(sprintf('Building Vocab: K-Means-clustering with %d clusters...', num_clusters));
 [C, A] = vl_kmeans(single(descriptors_all), num_clusters);
 % [C, A] = VL_KMEANS(X, NUMCENTERS) clusters columns of matrix X in
 % NUMCENTERS centroids C with k-means.

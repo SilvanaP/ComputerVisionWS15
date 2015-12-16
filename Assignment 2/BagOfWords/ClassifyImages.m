@@ -27,9 +27,9 @@ images_all = loadImages(folder);
 n = size(images_all, 1);
 
 % extract SIFT-features
-disp(sprintf('assign SIFT-features to visual words in vocabulary:'));
+disp(sprintf('Classify: assign SIFT-features to visual words in vocabulary'));
 for k = 1:1:n
-    disp(sprintf('-) image %d', k));
+    disp(sprintf('Classify: assign image %d', k));
     if(size(images_all{k}, 3) == 3)         % --> rgb
         img = im2double(images_all{k});
         img = rgb2gray(img);
@@ -61,7 +61,7 @@ end
 testImages = transpose(testImages);
 
 % classify testimages
-disp(sprintf('classify images'));
+disp(sprintf('Classify: classify images'));
 class = knnclassify(testImages, training, group, 3, 'euclidean');  % k = 3
 
 % create conf_matrix

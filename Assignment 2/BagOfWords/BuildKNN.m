@@ -30,7 +30,7 @@ allImages = loadImages(folder);
 % extract SIFT-feature from images
 for k = 1:1:800
     % calc features of image number k
-    disp(sprintf('calc SIFT for image %d', k));
+    disp(sprintf('Build KNN: calc SIFT for image %d', k));
     [frames, descriptors] = vl_dsift(single(allImages{k}), 'step', 2, 'fast');
     
     % Assign SIFT-features to visual words in vocabulary C
