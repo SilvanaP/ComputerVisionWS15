@@ -44,5 +44,7 @@ else % != 10
         img_counter = img_counter + 1;
     end
 end
+
+images = images(~cellfun(@isempty, images));
 end
 

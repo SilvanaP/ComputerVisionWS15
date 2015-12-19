@@ -24,7 +24,7 @@ testImages = [];
 
 % load n testimages
 images_all = loadImages(folder);
-n = size(images_all, 1);
+n = size(images_all, 1)
 
 % extract SIFT-features
 disp(sprintf('Classify: assign SIFT-features to visual words in vocabulary'));
@@ -62,7 +62,7 @@ testImages = transpose(testImages);
 
 % classify testimages
 disp(sprintf('Classify: classify images'));
-class = knnclassify(testImages, training, group, 3, 'euclidean');  % k = 3
+class = knnclassify(testImages, training, group, 3, 'euclidean')  % k = 3
 
 % create conf_matrix
 % elements at position (i, j) indicate how often an image with class label

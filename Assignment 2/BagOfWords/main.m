@@ -1,4 +1,4 @@
-% Computer Vision VU
+zt% Computer Vision VU
 % Assignment 5 - Scene Recognition with Bag of VisualWords
 % WS2015
 
@@ -15,4 +15,4 @@ C = BuildVocabulary('..\ass5_data\train', 50);
 
 % classify and show confusion matrix
 confusionMatrix = ClassifyImages('..\ass5_data\test', C, training, classlabel)
-
+%confusionMatrix = ClassifyImages('..\ass5_data\own_testimages', C, training, classlabel)
